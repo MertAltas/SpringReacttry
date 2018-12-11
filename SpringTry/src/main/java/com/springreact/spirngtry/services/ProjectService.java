@@ -18,7 +18,18 @@ public class ProjectService {
             return  projectRepository.save(project);
         }
         catch (Exception e){
-            throw  new ProjectIdException("projectIdentifiet  " + " " + project.getProjectIdentifer().toUpperCase()+" " + "is already exist");
+            throw  new ProjectIdException("projectIdentifier  " + " " + project.getProjectIdentifer().toUpperCase()+" " + "is already exist");
         }
+    }
+
+    public Project findProjectByProjectId (String projectId){
+        Project project =  projectRepository.findProjectByProjectIdentifer(projectId.toUpperCase());
+        if(project == null){
+            throw  new ProjectIdException("projectIdentifier  " + " " + projectId+" " + "does not exist");
+        }
+        return project;
+    }
+    public  Iterable<Project> findAllProjects() {
+        return projectRepository.findAll();
     }
 }
